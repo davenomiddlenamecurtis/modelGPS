@@ -1,2 +1,2 @@
 # modelGPS
-Model GPS distributions in cases and controls
+Model GPS / PRS distributions in cases and controls
