@@ -14,10 +14,6 @@
 # Throughout, I have pretended that the odds ratio is the same as the risk ratio and refer to OR rather than RR
 # I reckon this is good enough for a relatively rare trait and much easier to work with
 
-# I haven't bothered to code this properly
-# At the moment it shows the graphs for the first model then shows the graphs for the second model
-# If you want to leave the graphs for the first model displayed, comment out the very last line
-
 library(ggplot2)
 
 # Set these variables to the values you want
@@ -377,6 +373,7 @@ r[[3]]=PrevalenceRisk
 r[[4]]=ORRisk
 r[[5]]=SpecSensCentRisk
 r[[6]]=ROCRisk
+dev.new()
 multiplot(plotlist=r,cols=3)
 
 
