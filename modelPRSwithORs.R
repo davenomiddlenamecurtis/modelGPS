@@ -21,7 +21,7 @@ library(ggplot2)
 nSub=100000 # number of subjects to simulate
 pVar=0.06 # proportion of variance explained
 K=0.04 # prevalence
-expBeta=3 # relative risk increase associated with 1 SD increase in PRS
+expBeta=1.7 # relative risk increase associated with 1 SD increase in PRS
 
 # multiplot from Cookbook for R - http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
