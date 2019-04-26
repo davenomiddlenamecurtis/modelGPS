@@ -23,6 +23,7 @@ meanHigh=mean(subs$zWeight[subs$Decile>9.5])
 subs$Weight=(subs$zWeight-meanLow)*(highest-lowest)/(meanHigh-meanLow)+lowest
 WvPRS=ggplot(subs,aes(Decile,Weight)) + geom_point() + theme_bw() +
   scale_x_continuous(breaks = seq(1,10,by=1)) + 
+  scale_y_continuous(breaks = seq(25,125,by=5)) + 
   ggtitle(t)
 WvPRS
 cor(subs$Weight,subs$zPRS)
