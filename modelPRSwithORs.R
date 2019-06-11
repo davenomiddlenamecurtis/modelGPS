@@ -20,7 +20,7 @@ library(ggplot2)
 
 nSub=100000 # number of subjects to simulate
 pVar=0.06 # proportion of variance explained
-K=0.04 # prevalence
+K=0.01 # prevalence
 expBeta=1.7 # relative risk increase associated with 1 SD increase in PRS
 
 # multiplot from Cookbook for R - http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
@@ -168,7 +168,7 @@ for (r in 1:10)
 
 t=sprintf("PRS decile relative ORs")
 decOR=ggplot(deciles,aes(decile,relOR)) + geom_line() + theme_bw() +
-  scale_x_continuous(breaks = seq(1,10,by=1)) + expand_limits( y = 0) + 
+  scale_x_continuous(breaks = seq(1,10,by=1))  + expand_limits( y = 0) + scale_y_continuous(breaks=seq(0,100,1)) +
   ggtitle(t)
 t=sprintf("OR against PRS")
 OR=ggplot(centiles,aes(PRS,OR)) + geom_line() + theme_bw() +
@@ -328,7 +328,7 @@ for (r in 1:10)
 
 t=sprintf("PRS decile relative ORs")
 decORRisk=ggplot(deciles,aes(decile,relOR)) + geom_line() + theme_bw() +
-  scale_x_continuous(breaks = seq(1,10,by=1)) + expand_limits( y = 0) + 
+  scale_x_continuous(breaks = seq(1,10,by=1))  + expand_limits( y = 0) + scale_y_continuous(breaks=seq(0,100,1)) +
   ggtitle(t)
 t=sprintf("OR against PRS")
 ORRisk=ggplot(centiles,aes(PRS,OR)) + geom_line() + theme_bw() +
@@ -375,11 +375,4 @@ r[[5]]=SpecSensCentRisk
 r[[6]]=ROCRisk
 dev.new()
 multiplot(plotlist=r,cols=3)
-
-
-
-
-
-
-
 
