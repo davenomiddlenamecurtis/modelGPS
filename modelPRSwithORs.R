@@ -168,7 +168,7 @@ for (r in 1:10)
 
 t=sprintf("PRS decile relative ORs")
 decOR=ggplot(deciles,aes(decile,relOR)) + geom_line() + theme_bw() +
-  scale_x_continuous(breaks = seq(1,10,by=1)) + 
+  scale_x_continuous(breaks = seq(1,10,by=1)) + expand_limits( y = 0) + 
   ggtitle(t)
 t=sprintf("OR against PRS")
 OR=ggplot(centiles,aes(PRS,OR)) + geom_line() + theme_bw() +
@@ -328,7 +328,7 @@ for (r in 1:10)
 
 t=sprintf("PRS decile relative ORs")
 decORRisk=ggplot(deciles,aes(decile,relOR)) + geom_line() + theme_bw() +
-  scale_x_continuous(breaks = seq(1,10,by=1)) + 
+  scale_x_continuous(breaks = seq(1,10,by=1)) + expand_limits( y = 0) + 
   ggtitle(t)
 t=sprintf("OR against PRS")
 ORRisk=ggplot(centiles,aes(PRS,OR)) + geom_line() + theme_bw() +
