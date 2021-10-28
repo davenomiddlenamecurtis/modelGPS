@@ -14,7 +14,7 @@ library(ggplot2)
 
 # Set these variables to the values you want
 
-nSub=100000 # number of subjects to simulate
+nSub=500000 # number of subjects to simulate
 pVar=0.06 # proportion of variance explained
 K=0.01 # prevalence
 
@@ -80,6 +80,7 @@ pFreq=ggplot(subs, aes(x=PRS,color=Phenotype)) + geom_freqpoly(binwidth=0.1) + t
 t=sprintf("Density distribution of PRS in cases and controls,\nK=%.4f, pVar = %.3f",K,pVar)
 pDist=ggplot(subs, aes(x=PRS,color=Phenotype)) + geom_density() + theme_bw() +
   ggtitle(t) + scale_x_continuous(breaks = seq(-3,3,by =1))  + coord_cartesian(xlim=c(-4,4))
+
 centiles=data.frame(matrix(0, ncol = 10, nrow =101))
 colnames(centiles)=c("centile","PRS","controls","cases","Prevalence","Specificity","Sensitivity","PPV","AUC","OR")
 centiles$centile=(0:100)
@@ -88,8 +89,8 @@ totControl=0
 totCase=0
 for (r in 2:101)
 {
-  centiles$PRS[r]=subs$PRS[nSub/100*(r-1)]
-  part=subs$Phenotype[(hundredth*(centiles$centile[r]-1)+1):(hundredth*(centiles$centile[r]))]
+  centiles$PRS[r]=subs$PRS[hundredth*(r-1.5)]
+  part=subs$Phenotype[(hundredth*(r-2)+1):(hundredth*(r-1))]
   nControl=length(which(part=="controls"))
   centiles$controls[r]=nControl
   totControl=totControl+nControl
@@ -98,7 +99,7 @@ for (r in 2:101)
   totCase=totCase+nCase
 }
 centiles$cases[1]=0
-centiles$controls[1]=hundredth
+centiles$controls[1]=0
 centiles$PRS[1]=centiles$PRS[2]
 controlsSoFar=0
 casesSoFar=0
@@ -161,13 +162,14 @@ for (r in 1:10)
   deciles$relOR[r]=(deciles$cases[r]/deciles$controls[r])/baseOdds
 }
 
+centiles=centiles[-1,]
 t=sprintf("PRS decile relative ORs")
 decOR=ggplot(deciles,aes(decile,relOR)) + geom_line() + theme_bw() +
   scale_x_continuous(breaks = seq(1,10,by=1))  + expand_limits( y = 0) + scale_y_continuous(breaks=seq(0,100,1)) +
   ggtitle(t)
-t=sprintf("OR against PRS")
-OR=ggplot(centiles,aes(PRS,OR)) + geom_line() + theme_bw() +
-  scale_x_continuous(breaks = seq(-3,3,by=1))  + 
+t=sprintf("OR dichotomised by PRS")
+OR=ggplot(centiles[-100,],aes(PRS,OR)) + geom_line() + theme_bw() +
+  scale_x_continuous(breaks = seq(-3,3,by=1))  + expand_limits( y = 0) + scale_y_continuous(breaks=seq(0,100,1)) +
   coord_cartesian(xlim=c(-4,4)) +
   ggtitle(t)
 t=sprintf("Prevalence by centile of PRS")
